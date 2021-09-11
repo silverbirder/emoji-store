@@ -1,41 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
-import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import { Button, StyleSheet, Image, View } from "react-native";
+// import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+const openmoji = require('openmoji');
 
+
+const getUrl = () => {
+  const random = Math.floor(Math.random() * openmoji.openmojis.length);
+  const svgFilePath = openmoji.openmojis[random].openmoji_images.color.svg;
+  const fileUrl = `https://openmoji.org/data${svgFilePath}`;
+  return fileUrl;
+}
 // An example demonstrating the usage of native modules. 
 // (Yes, it can be optimzed, but that's not the point of the example :P)
 export function AsyncStorageExample(): JSX.Element {
-  const [value, setValue] = useState("     ");
-  const { getItem, setItem } = useAsyncStorage("@counter");
-
-  const readItemFromStorage = async () => {
-    const item = await getItem();
-    setValue(item || "");
+  const [url, setUrl] = useState(getUrl());
+  const updateIcon = async () => {
+    setUrl(getUrl());
   };
-
-  const writeItemToStorage = async (newValue: string) => {
-    await setItem(newValue);
-    setValue(newValue);
-  };
-
-  useEffect(() => {
-    readItemFromStorage();
-  }, []);
-
   return (
     <View style={styles.root}>
-      <Text
-        style={styles.text}
-      >{`Use the button below and refresh the app to test the async-storage native module`}</Text>
-      <View style={styles.row}>
-        <Text style={styles.text}>Current value: </Text>
-        <Text style={styles.value}>{value} </Text>
-      </View>
+      <Image style={styles.logo} source={{ uri: url }} />
       <Button
         onPress={() =>
-          writeItemToStorage(Math.random().toString(36).substr(2, 5))
+          updateIcon()
         }
-        title="Update value"
+        title="Update icon"
       />
     </View>
   );
@@ -44,6 +33,11 @@ export function AsyncStorageExample(): JSX.Element {
 const styles = StyleSheet.create({
   root: {
     marginTop: 28,
+  },
+  logo: {
+    width: 72,
+    height: 72,
+    marginBottom: 20,
   },
   row: {
     flexDirection: "row",
