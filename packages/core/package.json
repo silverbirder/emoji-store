@@ -22,6 +22,8 @@
     "react-native": "*"
   },
   "dependencies": {
-    "openmoji": "^13.1.0"
+    "graphql": "^15.5.3",
+    "openmoji": "^13.1.0",
+    "urql": "^2.0.4"
   }
 }

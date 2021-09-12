@@ -9,8 +9,56 @@ import {
 } from "react-native";
 import { AsyncStorageExample } from "./AsyncStorageExample";
 import { subPlatform } from "./config";
+import { useQuery } from 'urql';
+
+const TodosQuery = `
+{
+  launchesPast(limit: 1) {
+    mission_name
+    launch_date_local
+    launch_site {
+      site_name_long
+    }
+    links {
+      article_link
+      video_link
+    }
+    rocket {
+      rocket_name
+      first_stage {
+        cores {
+          flight
+          core {
+            reuse_count
+            status
+          }
+        }
+      }
+      second_stage {
+        payloads {
+          payload_type
+          payload_mass_kg
+          payload_mass_lbs
+        }
+      }
+    }
+    ships {
+      name
+      home_port
+      image
+    }
+  }
+}
+`;
 
 export function App(): JSX.Element {
+  const [result, reexecuteQuery] = useQuery({
+    query: TodosQuery,
+  });
+
+  const { data, fetching, error } = result;
+  if (fetching) return <Text>Loading...</Text>;
+  if (error) return <Text>Oh no... {error.message}</Text>;
   const platformValue = subPlatform
     ? `${Platform.OS} (${subPlatform})`
     : Platform.OS;
@@ -26,6 +74,9 @@ export function App(): JSX.Element {
           <Text style={styles.platformValue}>{platformValue}</Text>
         </View>
       </View>
+      {data.launchesPast.map((launche: any) => (
+        <Text>{launche.mission_name}</Text>
+      ))}
     </SafeAreaView>
   );
 }
