@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, StyleSheet, Image, View } from "react-native";
 // import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-const openmoji = require('openmoji');
-
 
 const getUrl = () => {
-  const random = Math.floor(Math.random() * openmoji.openmojis.length);
-  const svgFilePath = openmoji.openmojis[random].openmoji_images.color.svg;
-  const fileUrl = `https://openmoji.org/data${svgFilePath}`;
+  // 1F609
+  const fileUrl = `https://res.cloudinary.com/silverbirder/image/upload/v1630841339/silver-birder.github.io/purchases/braava_jet_m6.jpg`;
   return fileUrl;
 }
 // An example demonstrating the usage of native modules. 
