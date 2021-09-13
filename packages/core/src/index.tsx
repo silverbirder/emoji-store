@@ -1,5 +1,5 @@
 import React from "react";
-import { App as MyApp } from "./App";
+import { MyApp } from "./App";
 
 import { createClient, Provider } from 'urql';
 

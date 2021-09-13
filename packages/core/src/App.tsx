@@ -17,7 +17,7 @@ const TodosQuery = `
 }
 `;
 
-export function App(): JSX.Element {
+export function MyApp(): JSX.Element {
   const [result, reexecuteQuery] = useQuery({
     query: TodosQuery,
   });
