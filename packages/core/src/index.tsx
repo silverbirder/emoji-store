@@ -4,7 +4,7 @@ import { App as MyApp } from "./App";
 import { createClient, Provider } from 'urql';
 
 const client = createClient({
-    url: 'https://api.spacex.land/graphql/',
+    url: 'http://localhost:3000/graphql',
 });
 
 

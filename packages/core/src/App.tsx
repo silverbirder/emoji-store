@@ -13,41 +13,7 @@ import { useQuery } from 'urql';
 
 const TodosQuery = `
 {
-  launchesPast(limit: 1) {
-    mission_name
-    launch_date_local
-    launch_site {
-      site_name_long
-    }
-    links {
-      article_link
-      video_link
-    }
-    rocket {
-      rocket_name
-      first_stage {
-        cores {
-          flight
-          core {
-            reuse_count
-            status
-          }
-        }
-      }
-      second_stage {
-        payloads {
-          payload_type
-          payload_mass_kg
-          payload_mass_lbs
-        }
-      }
-    }
-    ships {
-      name
-      home_port
-      image
-    }
-  }
+  hello
 }
 `;
 
@@ -74,9 +40,7 @@ export function App(): JSX.Element {
           <Text style={styles.platformValue}>{platformValue}</Text>
         </View>
       </View>
-      {data.launchesPast.map((launche: any) => (
-        <Text>{launche.mission_name}</Text>
-      ))}
+      <Text>{data.hello}</Text>
     </SafeAreaView>
   );
 }
